@@ -1,0 +1,275 @@
+/* ================================
+   LOGIN SCREEN
+================================ */
+
+.login-overlay {
+    position: fixed;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 100%;
+
+    z-index: 9999;
+
+    display: none;
+
+    justify-content: center;
+    align-items: center;
+
+    background: #f4f7fb;
+
+    padding: 20px;
+}
+
+
+/* SHOW LOGIN AFTER GET STARTED */
+
+.login-overlay.show {
+    display: flex;
+}
+
+
+/* LOGIN BOX */
+
+.login-card {
+
+    width: 440px;
+
+    max-width: 100%;
+
+    background: white;
+
+    padding: 50px 45px;
+
+    border-radius: 65px;
+
+    border: 1px solid #d7dde5;
+
+    box-shadow:
+        0 4px 8px rgba(0, 0, 0, 0.20);
+}
+
+
+.login-card h1 {
+
+    text-align: center;
+
+    color: #123a69;
+
+    font-size: 30px;
+
+    margin-bottom: 45px;
+}
+
+
+/* FORM */
+
+.login-card form {
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+
+.login-card label {
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    color: #1f2937;
+
+    margin-left: 10px;
+
+    margin-bottom: 8px;
+}
+
+
+.login-card input {
+
+    width: 100%;
+
+    padding: 16px 25px;
+
+    border-radius: 10px;
+
+    border: 1px solid #cbd5e1;
+
+    outline: none;
+
+    font-size: 14px;
+
+    margin-bottom: 28px;
+
+    box-shadow:
+        0 3px 4px
+        rgba(0, 0, 0, 0.20);
+}
+
+
+.login-card input:focus {
+
+    border-color: #247bd0;
+
+}
+
+
+/* LOGIN BUTTON */
+
+.login-card button {
+
+    width: 100%;
+
+    padding: 16px;
+
+    border: none;
+
+    border-radius: 10px;
+
+    background: #247bd0;
+
+    color: white;
+
+    font-size: 17px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 3px 4px
+        rgba(0, 0, 0, 0.20);
+}
+
+
+.login-card button:hover {
+
+    background: #1968b3;
+}
+
+
+/* ERROR */
+
+.session-login-error {
+
+    color: #c62828;
+
+    font-size: 13px;
+
+    min-height: 18px;
+
+    margin-top: -15px;
+
+    margin-bottom: 10px;
+}
+
+
+/* HELP TEXT */
+
+.login-help {
+
+    margin-top: 30px;
+
+    text-align: center;
+
+    color: #687386;
+
+    font-size: 13px;
+}
+
+
+/* ================================
+   NAVBAR LOGIN USER
+================================ */
+
+.navbar-container {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+
+.session-user-area {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+}
+
+
+#logoutBtn {
+
+    border: none;
+
+    border-radius: 6px;
+
+    padding: 9px 18px;
+
+    background: white;
+
+    color: #0b3d91;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+#logoutBtn:hover {
+
+    background: #eaf1fb;
+}
+
+
+/* PREVENT SCROLL WHILE LOGIN IS OPEN */
+
+body.login-active {
+
+    overflow: hidden;
+}
+
+
+/* ================================
+   MOBILE
+================================ */
+
+@media (max-width: 600px) {
+
+    .login-card {
+
+        padding: 40px 25px;
+
+        border-radius: 40px;
+    }
+
+
+    .navbar-container {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+
+    .session-user-area {
+
+        width: 100%;
+
+        justify-content: space-between;
+    }
+
+}

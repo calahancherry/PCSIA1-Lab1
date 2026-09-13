@@ -1,142 +1,1069 @@
-	<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>CSS Equipment Management System</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        CSS Equipment Borrowing and Reservation Management System
+    </title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
+
 <body>
 
-    <!-- Navigation Bar -->
+
+<!-- =========================================
+     HOMEPAGE
+========================================= -->
+
+<div id="homePage">
+
     <header class="navbar">
 
-    <div class="navbar-container">
+        <div class="navbar-container">
 
-        <div class="system-name">
-            <span>CSS</span> Equipment System
+            <div class="system-name">
+                <span>CSS</span> Equipment System
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <section class="hero">
+
+        <div class="school-logos">
+
+            <img
+                src="images/htc-logo.png"
+                alt="Holy Trinity College Logo"
+            >
+
+            <img
+                src="images/css-logo.png"
+                alt="CSS Logo"
+            >
+
+        </div>
+
+
+        <h3>
+            HOLY TRINITY COLLEGE OF GENERAL SANTOS CITY
+        </h3>
+
+
+        <h4>
+            COMPUTER SYSTEMS SERVICING (CSS) LABORATORY
+        </h4>
+
+
+        <h1>
+            CSS Equipment Borrowing and
+            <span>
+                Reservation Management System
+            </span>
+        </h1>
+
+
+        <p>
+            Welcome to the CSS Equipment Management System.
+            Easily check equipment availability, reserve tools,
+            and manage borrowing transactions in one convenient place.
+        </p>
+
+
+        <button id="getStartedBtn">
+            Get Started
+        </button>
+
+    </section>
+
+</div>
+
+
+
+<!-- =========================================
+     LOGIN
+========================================= -->
+
+<div
+    id="loginPage"
+    class="login-page"
+>
+
+    <div class="login-card">
+
+        <h1>LOGIN</h1>
+
+
+        <form
+            id="loginForm"
+            novalidate
+        >
+
+            <label for="loginUsername">
+                Username
+            </label>
+
+            <input
+                type="text"
+                id="loginUsername"
+                placeholder="Enter username"
+                minlength="3"
+                maxlength="30"
+                required
+            >
+
+            <span
+                id="loginUsernameError"
+                class="error-message">
+            </span>
+
+
+            <label for="loginPassword">
+                Password
+            </label>
+
+            <input
+                type="password"
+                id="loginPassword"
+                placeholder="Enter password"
+                minlength="8"
+                maxlength="30"
+                required
+            >
+
+            <span
+                id="loginPasswordError"
+                class="error-message">
+            </span>
+
+
+            <button type="submit">
+                LOGIN
+            </button>
+
+        </form>
+
+
+        <p class="login-help">
+            Need help? Contact the administrator.
+        </p>
+
+
+        <button
+            id="backHomeBtn"
+            class="back-btn"
+            type="button"
+        >
+            Back
+        </button>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================
+     DASHBOARD
+========================================= -->
+
+<div
+    id="dashboardSystem"
+    class="dashboard-system"
+>
+
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+    <div class="sidebar-header">
+
+        <h2>
+            ⚙ CSS Equipment
+        </h2>
+
+        <p>
+            Borrowing and Reservation
+        </p>
+
+        <p>
+            Management System
+        </p>
+
+    </div>
+
+
+    <nav class="sidebar-menu">
+
+        <button
+            class="menu-btn active"
+            data-page="dashboardPage"
+        >
+            ▣ Dashboard
+        </button>
+
+
+        <button
+            class="menu-btn"
+            data-page="reservationPage"
+        >
+            • New Reservation
+        </button>
+
+
+        <button
+            class="menu-btn"
+            data-page="requestsPage"
+        >
+            • My Requests
+        </button>
+
+
+        <button
+            class="menu-btn"
+            data-page="equipmentPage"
+        >
+            • Equipment
+        </button>
+
+
+        <button
+            class="menu-btn"
+            data-page="recordsPage"
+        >
+            • Reservation Records
+        </button>
+
+
+        <button
+            class="menu-btn"
+            data-page="usersPage"
+        >
+            • User Management
+        </button>
+
+
+        <button
+            class="menu-btn"
+            data-page="announcementsPage"
+        >
+            • Announcements
+        </button>
+
+
+        <button
+            class="menu-btn"
+            data-page="profilePage"
+        >
+            • Profile
+        </button>
+
+
+        <button
+            id="logoutBtn"
+            class="menu-btn logout-btn"
+            type="button"
+        >
+            • Logout
+        </button>
+
+    </nav>
+
+</aside>
+
+
+
+<!-- =========================================
+     DASHBOARD CONTENT
+========================================= -->
+
+<main class="dashboard-content">
+
+
+<!-- DASHBOARD -->
+
+<section
+    id="dashboardPage"
+    class="dashboard-page active-page"
+>
+
+    <div class="page-header">
+
+        <div>
+
+            <h1>
+                Dashboard
+            </h1>
+
+            <p>
+                Welcome to the CSS Equipment System.
+            </p>
+
+        </div>
+
+
+        <div class="welcome-user">
+
+            Welcome,
+
+            <span id="displayUsername">
+                ADMIN
+            </span>
+
         </div>
 
     </div>
 
-</header>
 
+    <div class="dashboard-cards">
 
-    <!-- Main Hero Section -->
-    <main>
+        <div class="dashboard-card">
 
-        <section class="hero">
+            <h3>
+                Available Equipment
+            </h3>
 
-            <div class="hero-content">
-
-                <div class="school-logos">
-                    <img src="images/htc-logo.png" alt="Holy Trinity College Logo">
-                    <img src="images/css-logo.png" alt="Computer Systems Servicing Logo">
-                </div>
-
-                <p class="school-name">
-                    HOLY TRINITY COLLEGE OF GENERAL SANTOS CITY
-                </p>
-
-                <p class="department">
-                    COMPUTER SYSTEMS SERVICING (CSS) LABORATORY
-                </p>
-
-                <h1>
-                    CSS Equipment Borrowing and
-                    <span>Reservation Management System</span>
-                </h1>
-
-                <p class="welcome">
-                    Welcome to the CSS Equipment Management System.
-                    Easily check equipment availability, reserve tools,
-                    and manage borrowing transactions in one convenient place.
-                </p>
-
-                <button id="getStartedBtn" class="btn">
-                    Get Started
-                </button>
-
-            </div>
-
-        </section>
-
-
-        <!-- Features Section -->
-        <section class="features">
-
-            <h2>System Features</h2>
-
-            <p class="section-description">
-                The system is designed to make CSS laboratory equipment
-                borrowing and reservation easier, faster, and more organized.
-            </p>
-
-            <div class="feature-container">
-
-                <div class="feature-card">
-                    <div class="icon">📦</div>
-                    <h3>Equipment Management</h3>
-                    <p>
-                        Keep track of available CSS laboratory equipment
-                        and their current status.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="icon">📅</div>
-                    <h3>Equipment Reservation</h3>
-                    <p>
-                        Allow students to reserve equipment before using
-                        it in the laboratory.
-                    </p>
-                </div>
-
-                <div class="feature-card">
-                    <div class="icon">🔄</div>
-                    <h3>Borrowing Transactions</h3>
-                    <p>
-                        Record equipment borrowing and returning
-                        transactions efficiently.
-                    </p>
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
-
-
-    <!-- Footer -->
-    <footer>
-
-        <div class="footer-content">
-
-            <h3>CSS Equipment Management System</h3>
+            <h2>25</h2>
 
             <p>
-                Holy Trinity College of General Santos City
+                Equipment ready to borrow
             </p>
-
-            <p>
-                Developed by:
-                <strong>Calahan, Cherry Mae T.</strong>
-                and
-                <strong>Cataluna, Sheena-lyn</strong>
-            </p>
-
 
         </div>
 
-    </footer>
+
+        <div class="dashboard-card">
+
+            <h3>
+                Active Reservations
+            </h3>
+
+            <h2 id="reservationCount">
+                0
+            </h2>
+
+            <p>
+                Saved reservations
+            </p>
+
+        </div>
 
 
-    <script src="hello.js"></script>
+        <div class="dashboard-card">
+
+            <h3>
+                Registered Users
+            </h3>
+
+            <h2 id="userCount">
+                0
+            </h2>
+
+            <p>
+                Saved system users
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="content-card">
+
+        <h2>
+            System Overview
+        </h2>
+
+        <p>
+            The CSS Equipment Borrowing and Reservation
+            Management System helps students and laboratory
+            staff manage equipment availability, reservations,
+            borrowing, and records.
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================
+     NEW RESERVATION
+========================================= -->
+
+<section
+    id="reservationPage"
+    class="dashboard-page"
+>
+
+    <h1>
+        New Reservation
+    </h1>
+
+    <p class="page-description">
+        Complete the information below to reserve equipment.
+    </p>
+
+
+    <div class="form-card">
+
+        <form
+            id="reservationForm"
+            novalidate
+        >
+
+
+            <label for="studentName">
+                Student Name
+            </label>
+
+            <input
+                type="text"
+                id="studentName"
+                placeholder="Enter student name"
+                minlength="3"
+                maxlength="50"
+                required
+            >
+
+            <span
+                id="studentNameError"
+                class="error-message">
+            </span>
+
+
+            <label for="studentId">
+                Student ID
+            </label>
+
+            <input
+                type="text"
+                id="studentId"
+                placeholder="Example: 2024-12345"
+                pattern="[0-9]{4}-[0-9]{5}"
+                maxlength="10"
+                required
+            >
+
+            <span
+                id="studentIdError"
+                class="error-message">
+            </span>
+
+
+            <label for="equipmentSelect">
+                Equipment
+            </label>
+
+            <select
+                id="equipmentSelect"
+                required
+            >
+
+                <option value="">
+                    Select Equipment
+                </option>
+
+                <option value="LAN Cable">
+                    LAN Cable
+                </option>
+
+                <option value="Crimping Tool">
+                    Crimping Tool
+                </option>
+
+                <option value="Network Tester">
+                    Network Tester
+                </option>
+
+                <option value="Screwdriver Set">
+                    Screwdriver Set
+                </option>
+
+                <option value="RJ45 Connector">
+                    RJ45 Connector
+                </option>
+
+            </select>
+
+            <span
+                id="equipmentError"
+                class="error-message">
+            </span>
+
+
+            <label for="reservationDate">
+                Reservation Date
+            </label>
+
+            <input
+                type="date"
+                id="reservationDate"
+                required
+            >
+
+            <span
+                id="reservationDateError"
+                class="error-message">
+            </span>
+
+
+            <label for="reservationPurpose">
+                Purpose
+            </label>
+
+            <textarea
+                id="reservationPurpose"
+                placeholder="Enter purpose"
+                minlength="5"
+                maxlength="150"
+                required
+            ></textarea>
+
+            <span
+                id="purposeError"
+                class="error-message">
+            </span>
+
+
+            <button type="submit">
+                Submit Reservation
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================
+     MY REQUESTS
+========================================= -->
+
+<section
+    id="requestsPage"
+    class="dashboard-page"
+>
+
+    <h1>
+        My Requests
+    </h1>
+
+    <p class="page-description">
+        View saved equipment reservation requests.
+    </p>
+
+
+    <div class="content-card">
+
+        <div class="table-responsive">
+
+            <table id="requestTable">
+
+                <thead>
+
+                    <tr>
+                        <th>Student</th>
+                        <th>Student ID</th>
+                        <th>Equipment</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================
+     EQUIPMENT
+========================================= -->
+
+<section
+    id="equipmentPage"
+    class="dashboard-page"
+>
+
+    <h1>
+        Equipment
+    </h1>
+
+    <p class="page-description">
+        View available CSS laboratory equipment.
+    </p>
+
+
+    <div class="content-card">
+
+        <div class="table-responsive">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+                        <th>Equipment ID</th>
+                        <th>Equipment Name</th>
+                        <th>Quantity</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    <tr>
+                        <td>E001</td>
+                        <td>LAN Cable</td>
+                        <td>10</td>
+                        <td class="available">
+                            Available
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>E002</td>
+                        <td>Crimping Tool</td>
+                        <td>5</td>
+                        <td class="available">
+                            Available
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>E003</td>
+                        <td>Network Tester</td>
+                        <td>3</td>
+                        <td class="borrowed">
+                            Borrowed
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>E004</td>
+                        <td>Screwdriver Set</td>
+                        <td>7</td>
+                        <td class="available">
+                            Available
+                        </td>
+                    </tr>
+
+
+                    <tr>
+                        <td>E005</td>
+                        <td>RJ45 Connector</td>
+                        <td>30</td>
+                        <td class="available">
+                            Available
+                        </td>
+                    </tr>
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================
+     RESERVATION RECORDS
+========================================= -->
+
+<section
+    id="recordsPage"
+    class="dashboard-page"
+>
+
+    <h1>
+        Reservation Records
+    </h1>
+
+    <p class="page-description">
+        All saved reservation records.
+    </p>
+
+
+    <div class="content-card">
+
+        <div class="table-responsive">
+
+            <table id="recordsTable">
+
+                <thead>
+
+                    <tr>
+                        <th>Reservation ID</th>
+                        <th>Student</th>
+                        <th>Equipment</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================
+     USER MANAGEMENT
+========================================= -->
+
+<section
+    id="usersPage"
+    class="dashboard-page"
+>
+
+    <h1>
+        User Management
+    </h1>
+
+    <p class="page-description">
+        Add and manage system users.
+    </p>
+
+
+    <div class="form-card">
+
+        <h2>
+            Add New User
+        </h2>
+
+
+        <form
+            id="userForm"
+            novalidate
+        >
+
+
+            <label for="userId">
+                User ID
+            </label>
+
+            <input
+                type="text"
+                id="userId"
+                placeholder="Example: U006"
+                pattern="U[0-9]{3}"
+                minlength="4"
+                maxlength="4"
+                required
+            >
+
+            <span
+                id="userIdError"
+                class="error-message">
+            </span>
+
+
+            <label for="username">
+                Username
+            </label>
+
+            <input
+                type="text"
+                id="username"
+                placeholder="Enter username"
+                minlength="3"
+                maxlength="30"
+                required
+            >
+
+            <span
+                id="usernameError"
+                class="error-message">
+            </span>
+
+
+            <label for="email">
+                Email Address
+            </label>
+
+            <input
+                type="email"
+                id="email"
+                placeholder="Enter email"
+                maxlength="50"
+                required
+            >
+
+            <span
+                id="emailError"
+                class="error-message">
+            </span>
+
+
+            <label for="department">
+                Department
+            </label>
+
+            <select
+                id="department"
+                required
+            >
+
+                <option value="">
+                    Select Department
+                </option>
+
+                <option value="IT Department">
+                    IT Department
+                </option>
+
+                <option value="Registrar">
+                    Registrar
+                </option>
+
+                <option value="Accounting">
+                    Accounting
+                </option>
+
+                <option value="Library">
+                    Library
+                </option>
+
+                <option value="Administration">
+                    Administration
+                </option>
+
+            </select>
+
+            <span
+                id="departmentError"
+                class="error-message">
+            </span>
+
+
+            <label for="userStatus">
+                Status
+            </label>
+
+            <select
+                id="userStatus"
+                required
+            >
+
+                <option value="">
+                    Select Status
+                </option>
+
+                <option value="Active">
+                    Active
+                </option>
+
+                <option value="Inactive">
+                    Inactive
+                </option>
+
+            </select>
+
+            <span
+                id="userStatusError"
+                class="error-message">
+            </span>
+
+
+            <button type="submit">
+                Add User
+            </button>
+
+        </form>
+
+    </div>
+
+
+
+    <div class="content-card">
+
+        <h2>
+            Users
+        </h2>
+
+
+        <div class="table-responsive">
+
+            <table id="userTable">
+
+                <thead>
+
+                    <tr>
+                        <th>User ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Department</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================
+     ANNOUNCEMENTS
+========================================= -->
+
+<section
+    id="announcementsPage"
+    class="dashboard-page"
+>
+
+    <h1>
+        Announcements
+    </h1>
+
+    <p class="page-description">
+        Important CSS laboratory announcements.
+    </p>
+
+
+    <div class="announcement-card">
+
+        <h3>
+            Equipment Return Reminder
+        </h3>
+
+        <p>
+            All borrowed equipment must be returned
+            on or before the scheduled return date.
+        </p>
+
+    </div>
+
+
+    <div class="announcement-card">
+
+        <h3>
+            Reservation Reminder
+        </h3>
+
+        <p>
+            Students are encouraged to submit equipment
+            reservations before their scheduled laboratory
+            activities.
+        </p>
+
+    </div>
+
+</section>
+
+
+
+<!-- =========================================
+     PROFILE
+========================================= -->
+
+<section
+    id="profilePage"
+    class="dashboard-page"
+>
+
+    <h1>
+        Profile
+    </h1>
+
+    <p class="page-description">
+        View your system account.
+    </p>
+
+
+    <div class="profile-card">
+
+        <div class="profile-avatar">
+            A
+        </div>
+
+
+        <h2>
+            Administrator
+        </h2>
+
+
+        <p>
+            <strong>Role:</strong>
+            Administrator
+        </p>
+
+
+        <p>
+            <strong>Department:</strong>
+            CSS Laboratory
+        </p>
+
+
+        <p>
+            <strong>Status:</strong>
+            Active
+        </p>
+
+    </div>
+
+</section>
+
+
+</main>
+
+</div>
+
+
+<script src="hello.js"></script>
 
 </body>
 
