@@ -8,7 +8,7 @@ const ADMIN_PASSWORD = "admin123";
 
 
 // ============================================
-// GET ELEMENTS
+// ELEMENTS
 // ============================================
 
 const homePage =
@@ -44,25 +44,35 @@ const displayUsername =
 
 
 // ============================================
-// TASK 7 LOCAL STORAGE
+// LOCAL STORAGE
 // ============================================
 
 let savedUsers =
     JSON.parse(
-        localStorage.getItem(
-            "cssUsers"
-        )
+        localStorage.getItem("cssUsers")
     ) || [];
 
 
 let savedReservations =
     JSON.parse(
-        localStorage.getItem(
-            "cssReservations"
-        )
+        localStorage.getItem("cssReservations")
     ) || [];
 
 
+
+// ============================================
+// EDIT INDEX
+// ============================================
+
+let editingUserIndex = -1;
+
+let editingReservationIndex = -1;
+
+
+
+// ============================================
+// SAVE STORAGE
+// ============================================
 
 function saveUsers() {
 
@@ -74,14 +84,11 @@ function saveUsers() {
 }
 
 
-
 function saveReservations() {
 
     localStorage.setItem(
         "cssReservations",
-        JSON.stringify(
-            savedReservations
-        )
+        JSON.stringify(savedReservations)
     );
 
 }
@@ -112,7 +119,6 @@ function showError(
 }
 
 
-
 function showSuccess(
     input,
     errorElement
@@ -130,7 +136,6 @@ function showSuccess(
         "";
 
 }
-
 
 
 function clearValidation(form) {
@@ -162,8 +167,7 @@ function clearValidation(form) {
     errors.forEach(
         function (error) {
 
-            error.textContent =
-                "";
+            error.textContent = "";
 
         }
     );
@@ -215,7 +219,7 @@ backHomeBtn.addEventListener(
 
 
 // ============================================
-// LOGIN VALIDATION
+// LOGIN
 // ============================================
 
 loginForm.addEventListener(
@@ -247,26 +251,12 @@ loginForm.addEventListener(
         let valid = true;
 
 
-        // USERNAME
-
         if (username === "") {
 
             showError(
                 loginUsername,
                 usernameError,
                 "Username is required."
-            );
-
-            valid = false;
-
-        } else if (
-            username.length < 3
-        ) {
-
-            showError(
-                loginUsername,
-                usernameError,
-                "Username must contain at least 3 characters."
             );
 
             valid = false;
@@ -280,8 +270,6 @@ loginForm.addEventListener(
 
         }
 
-
-        // PASSWORD
 
         if (password === "") {
 
@@ -300,7 +288,7 @@ loginForm.addEventListener(
             showError(
                 loginPassword,
                 passwordError,
-                "Password must contain at least 8 characters."
+                "Password must have at least 8 characters."
             );
 
             valid = false;
@@ -316,17 +304,13 @@ loginForm.addEventListener(
 
 
         if (!valid) {
-
             return;
-
         }
 
 
         if (
-            username ===
-                ADMIN_USERNAME &&
-            password ===
-                ADMIN_PASSWORD
+            username === ADMIN_USERNAME &&
+            password === ADMIN_PASSWORD
         ) {
 
             sessionStorage.setItem(
@@ -335,12 +319,11 @@ loginForm.addEventListener(
             );
 
 
+            loginForm.reset();
+
             clearValidation(
                 loginForm
             );
-
-
-            loginForm.reset();
 
 
             loginPage.classList.remove(
@@ -384,7 +367,7 @@ loginForm.addEventListener(
 
 
 // ============================================
-// SIDEBAR NAVIGATION
+// SIDEBAR
 // ============================================
 
 const menuButtons =
@@ -440,9 +423,7 @@ menuButtons.forEach(
 
 
 
-function showDashboardPage(
-    pageId
-) {
+function showDashboardPage(pageId) {
 
     dashboardPages.forEach(
         function (page) {
@@ -455,15 +436,13 @@ function showDashboardPage(
     );
 
 
-    const selectedPage =
-        document.getElementById(
-            pageId
-        );
+    const page =
+        document.getElementById(pageId);
 
 
-    if (selectedPage) {
+    if (page) {
 
-        selectedPage.classList.add(
+        page.classList.add(
             "active-page"
         );
 
@@ -486,34 +465,35 @@ logoutBtn.addEventListener(
     "click",
     function () {
 
-        const confirmLogout =
+        const answer =
             confirm(
                 "Are you sure you want to logout?"
             );
 
 
-        if (confirmLogout) {
-
-            sessionStorage.removeItem(
-                "loggedInUser"
-            );
-
-
-            dashboardSystem.classList.remove(
-                "show"
-            );
-
-
-            homePage.style.display =
-                "block";
-
-
-            window.scrollTo(
-                0,
-                0
-            );
-
+        if (!answer) {
+            return;
         }
+
+
+        sessionStorage.removeItem(
+            "loggedInUser"
+        );
+
+
+        dashboardSystem.classList.remove(
+            "show"
+        );
+
+
+        homePage.style.display =
+            "block";
+
+
+        window.scrollTo(
+            0,
+            0
+        );
 
     }
 );
@@ -550,11 +530,19 @@ function displayUsers() {
                 <td>${user.status}</td>
 
                 <td>
+
+                    <button
+                        class="edit-record-btn"
+                        data-user-edit="${index}">
+                        Edit
+                    </button>
+
                     <button
                         class="delete-record-btn"
-                        data-user-index="${index}">
+                        data-user-delete="${index}">
                         Delete
                     </button>
+
                 </td>
             `;
 
@@ -562,41 +550,184 @@ function displayUsers() {
     );
 
 
-    const buttons =
-        document.querySelectorAll(
-            "[data-user-index]"
+    document
+        .querySelectorAll(
+            "[data-user-edit]"
+        )
+        .forEach(
+            function (button) {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        const index =
+                            Number(
+                                this.getAttribute(
+                                    "data-user-edit"
+                                )
+                            );
+
+
+                        editUser(index);
+
+                    }
+                );
+
+            }
         );
 
 
-    buttons.forEach(
-        function (button) {
+    document
+        .querySelectorAll(
+            "[data-user-delete]"
+        )
+        .forEach(
+            function (button) {
 
-            button.addEventListener(
-                "click",
-                function () {
+                button.addEventListener(
+                    "click",
+                    function () {
 
-                    const index =
-                        Number(
-                            this.getAttribute(
-                                "data-user-index"
-                            )
-                        );
+                        const index =
+                            Number(
+                                this.getAttribute(
+                                    "data-user-delete"
+                                )
+                            );
 
 
-                    deleteUser(
-                        index
-                    );
+                        deleteUser(index);
 
-                }
-            );
+                    }
+                );
 
-        }
-    );
+            }
+        );
 
 
     updateDashboardCounts();
 
 }
+
+
+
+// ============================================
+// EDIT USER
+// ============================================
+
+function editUser(index) {
+
+    const user =
+        savedUsers[index];
+
+
+    editingUserIndex =
+        index;
+
+
+    document.getElementById(
+        "userId"
+    ).value =
+        user.userId;
+
+
+    document.getElementById(
+        "username"
+    ).value =
+        user.username;
+
+
+    document.getElementById(
+        "email"
+    ).value =
+        user.email;
+
+
+    document.getElementById(
+        "department"
+    ).value =
+        user.department;
+
+
+    document.getElementById(
+        "userStatus"
+    ).value =
+        user.status;
+
+
+    document.getElementById(
+        "userSubmitBtn"
+    ).textContent =
+        "Update User";
+
+
+    document.getElementById(
+        "userFormTitle"
+    ).textContent =
+        "Edit User";
+
+
+    document.getElementById(
+        "cancelUserEditBtn"
+    ).classList.add(
+        "show"
+    );
+
+
+    document.querySelector(
+        "#usersPage .form-card"
+    ).scrollIntoView({
+        behavior: "smooth"
+    });
+
+}
+
+
+
+// ============================================
+// CANCEL USER EDIT
+// ============================================
+
+const cancelUserEditBtn =
+    document.getElementById(
+        "cancelUserEditBtn"
+    );
+
+
+cancelUserEditBtn.addEventListener(
+    "click",
+    function () {
+
+        editingUserIndex = -1;
+
+
+        userForm.reset();
+
+
+        clearValidation(
+            userForm
+        );
+
+
+        document.getElementById(
+            "userSubmitBtn"
+        ).textContent =
+            "Add User";
+
+
+        document.getElementById(
+            "userFormTitle"
+        ).textContent =
+            "Add New User";
+
+
+        this.classList.remove(
+            "show"
+        );
+
+    }
+);
 
 
 
@@ -608,14 +739,12 @@ function deleteUser(index) {
 
     const answer =
         confirm(
-            "Are you sure you want to delete this user?"
+            "Are you sure you want to permanently delete this user?"
         );
 
 
     if (!answer) {
-
         return;
-
     }
 
 
@@ -629,12 +758,17 @@ function deleteUser(index) {
 
     displayUsers();
 
+
+    alert(
+        "User deleted successfully!"
+    );
+
 }
 
 
 
 // ============================================
-// ADD USER
+// USER FORM
 // ============================================
 
 const userForm =
@@ -713,22 +847,17 @@ userForm.addEventListener(
         let valid = true;
 
 
-
-        // USER ID
-
-        const userIdPattern =
-            /^U[0-9]{3}$/;
-
-
         userId.value =
             userId.value
                 .trim()
                 .toUpperCase();
 
 
-        if (
-            userId.value === ""
-        ) {
+        const userIdPattern =
+            /^U[0-9]{3}$/;
+
+
+        if (userId.value === "") {
 
             showError(
                 userId,
@@ -762,9 +891,6 @@ userForm.addEventListener(
         }
 
 
-
-        // USERNAME
-
         if (
             username.value.trim() === ""
         ) {
@@ -778,9 +904,7 @@ userForm.addEventListener(
             valid = false;
 
         } else if (
-            username.value
-                .trim()
-                .length < 3
+            username.value.trim().length < 3
         ) {
 
             showError(
@@ -800,9 +924,6 @@ userForm.addEventListener(
 
         }
 
-
-
-        // EMAIL
 
         const emailPattern =
             /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -844,9 +965,6 @@ userForm.addEventListener(
         }
 
 
-
-        // DEPARTMENT
-
         if (
             department.value === ""
         ) {
@@ -868,9 +986,6 @@ userForm.addEventListener(
 
         }
 
-
-
-        // STATUS
 
         if (
             status.value === ""
@@ -894,7 +1009,6 @@ userForm.addEventListener(
         }
 
 
-
         if (!valid) {
 
             alert(
@@ -906,16 +1020,20 @@ userForm.addEventListener(
         }
 
 
-
-        // CHECK DUPLICATE ID
+        // CHECK DUPLICATE USER ID
 
         const duplicate =
             savedUsers.some(
-                function (user) {
+                function (
+                    user,
+                    index
+                ) {
 
                     return (
                         user.userId ===
-                        userId.value
+                            userId.value &&
+                        index !==
+                            editingUserIndex
                     );
 
                 }
@@ -935,10 +1053,7 @@ userForm.addEventListener(
         }
 
 
-
-        // CREATE OBJECT
-
-        const newUser = {
+        const userData = {
 
             userId:
                 userId.value,
@@ -958,11 +1073,42 @@ userForm.addEventListener(
         };
 
 
-        // STORE
+        // UPDATE
 
-        savedUsers.push(
-            newUser
-        );
+        if (
+            editingUserIndex !== -1
+        ) {
+
+            savedUsers[
+                editingUserIndex
+            ] = userData;
+
+
+            alert(
+                "User updated successfully!"
+            );
+
+
+            editingUserIndex =
+                -1;
+
+        }
+
+
+        // CREATE
+
+        else {
+
+            savedUsers.push(
+                userData
+            );
+
+
+            alert(
+                "User added successfully!"
+            );
+
+        }
 
 
         saveUsers();
@@ -970,15 +1116,27 @@ userForm.addEventListener(
         displayUsers();
 
 
-        alert(
-            "User saved successfully!"
-        );
-
-
         userForm.reset();
 
         clearValidation(
             userForm
+        );
+
+
+        document.getElementById(
+            "userSubmitBtn"
+        ).textContent =
+            "Add User";
+
+
+        document.getElementById(
+            "userFormTitle"
+        ).textContent =
+            "Add New User";
+
+
+        cancelUserEditBtn.classList.remove(
+            "show"
         );
 
     }
@@ -990,13 +1148,9 @@ userForm.addEventListener(
 // AUTO UPPERCASE USER ID
 // ============================================
 
-const userIdInput =
-    document.getElementById(
-        "userId"
-    );
-
-
-userIdInput.addEventListener(
+document.getElementById(
+    "userId"
+).addEventListener(
     "input",
     function () {
 
@@ -1051,11 +1205,19 @@ function displayReservations() {
                 <td>${reservation.status}</td>
 
                 <td>
+
+                    <button
+                        class="edit-record-btn"
+                        data-reservation-edit="${index}">
+                        Edit
+                    </button>
+
                     <button
                         class="delete-record-btn"
-                        data-reservation-index="${index}">
+                        data-reservation-delete="${index}">
                         Delete
                     </button>
+
                 </td>
             `;
 
@@ -1065,47 +1227,89 @@ function displayReservations() {
 
 
             recordRow.innerHTML = `
-                <td>R${String(index + 1).padStart(3, "0")}</td>
-                <td>${reservation.studentName}</td>
-                <td>${reservation.equipment}</td>
-                <td>${reservation.date}</td>
-                <td>${reservation.status}</td>
+                <td>
+                    R${String(index + 1).padStart(3, "0")}
+                </td>
+
+                <td>
+                    ${reservation.studentName}
+                </td>
+
+                <td>
+                    ${reservation.equipment}
+                </td>
+
+                <td>
+                    ${reservation.date}
+                </td>
+
+                <td>
+                    ${reservation.status}
+                </td>
             `;
 
         }
     );
 
 
-    const deleteButtons =
-        document.querySelectorAll(
-            "[data-reservation-index]"
+    document
+        .querySelectorAll(
+            "[data-reservation-edit]"
+        )
+        .forEach(
+            function (button) {
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        const index =
+                            Number(
+                                this.getAttribute(
+                                    "data-reservation-edit"
+                                )
+                            );
+
+
+                        editReservation(
+                            index
+                        );
+
+                    }
+                );
+
+            }
         );
 
 
-    deleteButtons.forEach(
-        function (button) {
+    document
+        .querySelectorAll(
+            "[data-reservation-delete]"
+        )
+        .forEach(
+            function (button) {
 
-            button.addEventListener(
-                "click",
-                function () {
+                button.addEventListener(
+                    "click",
+                    function () {
 
-                    const index =
-                        Number(
-                            this.getAttribute(
-                                "data-reservation-index"
-                            )
+                        const index =
+                            Number(
+                                this.getAttribute(
+                                    "data-reservation-delete"
+                                )
+                            );
+
+
+                        deleteReservation(
+                            index
                         );
 
+                    }
+                );
 
-                    deleteReservation(
-                        index
-                    );
-
-                }
-            );
-
-        }
-    );
+            }
+        );
 
 
     updateDashboardCounts();
@@ -1115,23 +1319,161 @@ function displayReservations() {
 
 
 // ============================================
+// EDIT RESERVATION
+// ============================================
+
+function editReservation(index) {
+
+    const reservation =
+        savedReservations[index];
+
+
+    editingReservationIndex =
+        index;
+
+
+    document.getElementById(
+        "studentName"
+    ).value =
+        reservation.studentName;
+
+
+    document.getElementById(
+        "studentId"
+    ).value =
+        reservation.studentId;
+
+
+    document.getElementById(
+        "equipmentSelect"
+    ).value =
+        reservation.equipment;
+
+
+    document.getElementById(
+        "reservationDate"
+    ).value =
+        reservation.date;
+
+
+    document.getElementById(
+        "reservationPurpose"
+    ).value =
+        reservation.purpose;
+
+
+    showDashboardPage(
+        "reservationPage"
+    );
+
+
+    menuButtons.forEach(
+        function (button) {
+
+            button.classList.remove(
+                "active"
+            );
+
+
+            if (
+                button.getAttribute(
+                    "data-page"
+                ) ===
+                "reservationPage"
+            ) {
+
+                button.classList.add(
+                    "active"
+                );
+
+            }
+
+        }
+    );
+
+
+    document.getElementById(
+        "reservationSubmitBtn"
+    ).textContent =
+        "Update Reservation";
+
+
+    document.getElementById(
+        "reservationFormTitle"
+    ).textContent =
+        "Edit Reservation";
+
+
+    document.getElementById(
+        "cancelReservationEditBtn"
+    ).classList.add(
+        "show"
+    );
+
+}
+
+
+
+// ============================================
+// CANCEL RESERVATION EDIT
+// ============================================
+
+const cancelReservationEditBtn =
+    document.getElementById(
+        "cancelReservationEditBtn"
+    );
+
+
+cancelReservationEditBtn.addEventListener(
+    "click",
+    function () {
+
+        editingReservationIndex =
+            -1;
+
+
+        reservationForm.reset();
+
+        clearValidation(
+            reservationForm
+        );
+
+
+        document.getElementById(
+            "reservationSubmitBtn"
+        ).textContent =
+            "Submit Reservation";
+
+
+        document.getElementById(
+            "reservationFormTitle"
+        ).textContent =
+            "Add Reservation";
+
+
+        this.classList.remove(
+            "show"
+        );
+
+    }
+);
+
+
+
+// ============================================
 // DELETE RESERVATION
 // ============================================
 
-function deleteReservation(
-    index
-) {
+function deleteReservation(index) {
 
     const answer =
         confirm(
-            "Are you sure you want to delete this reservation?"
+            "Are you sure you want to permanently delete this reservation?"
         );
 
 
     if (!answer) {
-
         return;
-
     }
 
 
@@ -1145,12 +1487,17 @@ function deleteReservation(
 
     displayReservations();
 
+
+    alert(
+        "Reservation deleted successfully!"
+    );
+
 }
 
 
 
 // ============================================
-// NEW RESERVATION
+// RESERVATION FORM
 // ============================================
 
 const reservationForm =
@@ -1229,32 +1576,14 @@ reservationForm.addEventListener(
         let valid = true;
 
 
-
-        // STUDENT NAME
-
         if (
-            studentName.value
-                .trim() === ""
+            studentName.value.trim() === ""
         ) {
 
             showError(
                 studentName,
                 studentNameError,
                 "Student name is required."
-            );
-
-            valid = false;
-
-        } else if (
-            studentName.value
-                .trim()
-                .length < 3
-        ) {
-
-            showError(
-                studentName,
-                studentNameError,
-                "Enter at least 3 characters."
             );
 
             valid = false;
@@ -1269,27 +1598,11 @@ reservationForm.addEventListener(
         }
 
 
-
-        // STUDENT ID
-
         const studentIdPattern =
             /^[0-9]{4}-[0-9]{5}$/;
 
 
         if (
-            studentId.value
-                .trim() === ""
-        ) {
-
-            showError(
-                studentId,
-                studentIdError,
-                "Student ID is required."
-            );
-
-            valid = false;
-
-        } else if (
             !studentIdPattern.test(
                 studentId.value.trim()
             )
@@ -1313,9 +1626,6 @@ reservationForm.addEventListener(
         }
 
 
-
-        // EQUIPMENT
-
         if (
             equipment.value === ""
         ) {
@@ -1338,9 +1648,6 @@ reservationForm.addEventListener(
         }
 
 
-
-        // DATE
-
         if (
             reservationDate.value === ""
         ) {
@@ -1355,75 +1662,22 @@ reservationForm.addEventListener(
 
         } else {
 
-            const selectedDate =
-                new Date(
-                    reservationDate.value +
-                    "T00:00:00"
-                );
-
-
-            const today =
-                new Date();
-
-
-            today.setHours(
-                0,
-                0,
-                0,
-                0
+            showSuccess(
+                reservationDate,
+                dateError
             );
-
-
-            if (
-                selectedDate < today
-            ) {
-
-                showError(
-                    reservationDate,
-                    dateError,
-                    "Reservation date cannot be in the past."
-                );
-
-                valid = false;
-
-            } else {
-
-                showSuccess(
-                    reservationDate,
-                    dateError
-                );
-
-            }
 
         }
 
 
-
-        // PURPOSE
-
         if (
-            purpose.value
-                .trim() === ""
+            purpose.value.trim().length < 5
         ) {
 
             showError(
                 purpose,
                 purposeError,
-                "Purpose is required."
-            );
-
-            valid = false;
-
-        } else if (
-            purpose.value
-                .trim()
-                .length < 5
-        ) {
-
-            showError(
-                purpose,
-                purposeError,
-                "Enter at least 5 characters."
+                "Purpose must have at least 5 characters."
             );
 
             valid = false;
@@ -1438,7 +1692,6 @@ reservationForm.addEventListener(
         }
 
 
-
         if (!valid) {
 
             alert(
@@ -1450,10 +1703,7 @@ reservationForm.addEventListener(
         }
 
 
-
-        // CREATE OBJECT
-
-        const newReservation = {
+        const reservationData = {
 
             studentName:
                 studentName.value.trim(),
@@ -1476,19 +1726,40 @@ reservationForm.addEventListener(
         };
 
 
-        savedReservations.push(
-            newReservation
-        );
+        if (
+            editingReservationIndex !== -1
+        ) {
+
+            savedReservations[
+                editingReservationIndex
+            ] = reservationData;
+
+
+            editingReservationIndex =
+                -1;
+
+
+            alert(
+                "Reservation updated successfully!"
+            );
+
+        } else {
+
+            savedReservations.push(
+                reservationData
+            );
+
+
+            alert(
+                "Reservation added successfully!"
+            );
+
+        }
 
 
         saveReservations();
 
         displayReservations();
-
-
-        alert(
-            "Reservation saved successfully!"
-        );
 
 
         reservationForm.reset();
@@ -1498,33 +1769,25 @@ reservationForm.addEventListener(
         );
 
 
-        showDashboardPage(
-            "requestsPage"
+        document.getElementById(
+            "reservationSubmitBtn"
+        ).textContent =
+            "Submit Reservation";
+
+
+        document.getElementById(
+            "reservationFormTitle"
+        ).textContent =
+            "Add Reservation";
+
+
+        cancelReservationEditBtn.classList.remove(
+            "show"
         );
 
 
-        menuButtons.forEach(
-            function (button) {
-
-                button.classList.remove(
-                    "active"
-                );
-
-
-                if (
-                    button.getAttribute(
-                        "data-page"
-                    ) ===
-                    "requestsPage"
-                ) {
-
-                    button.classList.add(
-                        "active"
-                    );
-
-                }
-
-            }
+        showDashboardPage(
+            "requestsPage"
         );
 
     }
@@ -1533,44 +1796,28 @@ reservationForm.addEventListener(
 
 
 // ============================================
-// DASHBOARD COUNTS
+// COUNTS
 // ============================================
 
 function updateDashboardCounts() {
 
-    const reservationCount =
-        document.getElementById(
-            "reservationCount"
-        );
+    document.getElementById(
+        "userCount"
+    ).textContent =
+        savedUsers.length;
 
 
-    const userCount =
-        document.getElementById(
-            "userCount"
-        );
-
-
-    if (reservationCount) {
-
-        reservationCount.textContent =
-            savedReservations.length;
-
-    }
-
-
-    if (userCount) {
-
-        userCount.textContent =
-            savedUsers.length;
-
-    }
+    document.getElementById(
+        "reservationCount"
+    ).textContent =
+        savedReservations.length;
 
 }
 
 
 
 // ============================================
-// LOAD SAVED DATA
+// LOAD RECORDS
 // ============================================
 
 displayUsers();

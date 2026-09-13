@@ -53,7 +53,6 @@ textarea {
 
     display: flex;
     flex-direction: column;
-
     justify-content: center;
     align-items: center;
 
@@ -165,11 +164,6 @@ textarea {
 }
 
 
-.hero button:hover {
-    background: #08377c;
-}
-
-
 /* =========================================
    LOGIN
 ========================================= */
@@ -206,8 +200,7 @@ textarea {
 
     background: white;
 
-    border:
-        1px solid #d7dde5;
+    border: 1px solid #d7dde5;
 
     border-radius: 55px;
 
@@ -245,8 +238,7 @@ textarea {
 
     padding: 15px;
 
-    border:
-        1px solid #cbd5e1;
+    border: 1px solid #cbd5e1;
 
     border-radius: 9px;
 
@@ -291,8 +283,7 @@ textarea {
 
     padding: 12px;
 
-    border:
-        1px solid #cbd5e1;
+    border: 1px solid #cbd5e1;
 
     border-radius: 8px;
 
@@ -339,8 +330,7 @@ textarea {
 
     overflow-y: auto;
 
-    border-right:
-        1px solid #c8d9ef;
+    border-right: 1px solid #c8d9ef;
 }
 
 
@@ -469,7 +459,6 @@ textarea {
     display: flex;
 
     justify-content: space-between;
-
     align-items: center;
 
     gap: 20px;
@@ -488,15 +477,11 @@ textarea {
     color: #0b3d91;
 
     font-weight: bold;
-
-    box-shadow:
-        0 3px 10px
-        rgba(0, 0, 0, 0.08);
 }
 
 
 /* =========================================
-   DASHBOARD CARDS
+   CARDS
 ========================================= */
 
 .dashboard-cards {
@@ -511,7 +496,11 @@ textarea {
 }
 
 
-.dashboard-card {
+.dashboard-card,
+.content-card,
+.form-card,
+.profile-card,
+.announcement-card {
     padding: 28px;
 
     background: white;
@@ -521,6 +510,14 @@ textarea {
     box-shadow:
         0 4px 15px
         rgba(0, 0, 0, 0.08);
+}
+
+
+.content-card,
+.form-card,
+.profile-card,
+.announcement-card {
+    margin-top: 20px;
 }
 
 
@@ -546,43 +543,20 @@ textarea {
 
 
 /* =========================================
-   CARDS
+   FORMS
 ========================================= */
-
-.content-card,
-.form-card,
-.profile-card,
-.announcement-card {
-    margin-top: 20px;
-
-    padding: 28px;
-
-    background: white;
-
-    border-radius: 12px;
-
-    box-shadow:
-        0 4px 15px
-        rgba(0, 0, 0, 0.08);
-}
-
 
 .form-card {
     max-width: 750px;
 }
 
 
-.form-card h2,
-.content-card h2 {
+.form-card h2 {
     margin-bottom: 20px;
 
     color: #123a69;
 }
 
-
-/* =========================================
-   FORMS
-========================================= */
 
 .form-card form {
     display: flex;
@@ -606,8 +580,7 @@ textarea {
 
     padding: 13px;
 
-    border:
-        1px solid #cbd5e1;
+    border: 1px solid #cbd5e1;
 
     border-radius: 7px;
 
@@ -644,7 +617,7 @@ textarea {
 
 
 /* =========================================
-   TASK 6 VALIDATION
+   VALIDATION
 ========================================= */
 
 .error-message {
@@ -677,7 +650,7 @@ textarea {
 
 
 /* =========================================
-   TABLES
+   TABLE
 ========================================= */
 
 .table-responsive {
@@ -696,8 +669,7 @@ th,
 td {
     padding: 14px;
 
-    border:
-        1px solid #d6dee8;
+    border: 1px solid #d6dee8;
 
     text-align: left;
 }
@@ -735,8 +707,32 @@ tbody tr:hover {
 
 
 /* =========================================
-   DELETE BUTTON
+   CRUD BUTTONS
 ========================================= */
+
+.edit-record-btn {
+    padding: 8px 14px;
+
+    margin-right: 6px;
+
+    border: none;
+
+    border-radius: 6px;
+
+    background: #2d7fda;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+}
+
+
+.edit-record-btn:hover {
+    background: #1f68b8;
+}
+
 
 .delete-record-btn {
     padding: 8px 14px;
@@ -760,21 +756,15 @@ tbody tr:hover {
 }
 
 
-/* =========================================
-   ANNOUNCEMENTS
-========================================= */
+.cancel-edit-btn {
+    display: none;
 
-.announcement-card h3 {
-    margin-bottom: 12px;
-
-    color: #0b3d91;
+    background: #6c757d !important;
 }
 
 
-.announcement-card p {
-    line-height: 1.6;
-
-    color: #555;
+.cancel-edit-btn.show {
+    display: block;
 }
 
 
@@ -793,8 +783,7 @@ tbody tr:hover {
     width: 90px;
     height: 90px;
 
-    margin:
-        0 auto 18px;
+    margin: 0 auto 18px;
 
     display: flex;
 
@@ -813,11 +802,6 @@ tbody tr:hover {
 }
 
 
-.profile-card p {
-    margin: 12px 0;
-}
-
-
 /* =========================================
    RESPONSIVE
 ========================================= */
@@ -832,23 +816,10 @@ tbody tr:hover {
         width: 210px;
     }
 
-    .hero h1 {
-        font-size: 38px;
-    }
-
 }
 
 
 @media (max-width: 650px) {
-
-    .hero h1 {
-        font-size: 30px;
-    }
-
-    .school-logos img {
-        width: 105px;
-        height: 105px;
-    }
 
     .dashboard-system.show {
         display: block;
@@ -865,12 +836,6 @@ tbody tr:hover {
         height: auto;
 
         padding: 22px;
-    }
-
-    .page-header {
-        flex-direction: column;
-
-        align-items: flex-start;
     }
 
 }

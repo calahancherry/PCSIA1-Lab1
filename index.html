@@ -286,7 +286,7 @@
 
 
 <!-- =========================================
-     DASHBOARD CONTENT
+     MAIN CONTENT
 ========================================= -->
 
 <main class="dashboard-content">
@@ -347,7 +347,7 @@
         <div class="dashboard-card">
 
             <h3>
-                Active Reservations
+                Reservations
             </h3>
 
             <h2 id="reservationCount">
@@ -379,22 +379,6 @@
 
     </div>
 
-
-    <div class="content-card">
-
-        <h2>
-            System Overview
-        </h2>
-
-        <p>
-            The CSS Equipment Borrowing and Reservation
-            Management System helps students and laboratory
-            staff manage equipment availability, reservations,
-            borrowing, and records.
-        </p>
-
-    </div>
-
 </section>
 
 
@@ -419,11 +403,15 @@
 
     <div class="form-card">
 
+        <h2 id="reservationFormTitle">
+            Add Reservation
+        </h2>
+
+
         <form
             id="reservationForm"
             novalidate
         >
-
 
             <label for="studentName">
                 Student Name
@@ -538,8 +526,20 @@
             </span>
 
 
-            <button type="submit">
+            <button
+                id="reservationSubmitBtn"
+                type="submit"
+            >
                 Submit Reservation
+            </button>
+
+
+            <button
+                id="cancelReservationEditBtn"
+                class="cancel-edit-btn"
+                type="button"
+            >
+                Cancel Edit
             </button>
 
         </form>
@@ -564,7 +564,7 @@
     </h1>
 
     <p class="page-description">
-        View saved equipment reservation requests.
+        View and manage reservation requests.
     </p>
 
 
@@ -648,7 +648,6 @@
                         </td>
                     </tr>
 
-
                     <tr>
                         <td>E002</td>
                         <td>Crimping Tool</td>
@@ -657,7 +656,6 @@
                             Available
                         </td>
                     </tr>
-
 
                     <tr>
                         <td>E003</td>
@@ -668,7 +666,6 @@
                         </td>
                     </tr>
 
-
                     <tr>
                         <td>E004</td>
                         <td>Screwdriver Set</td>
@@ -677,7 +674,6 @@
                             Available
                         </td>
                     </tr>
-
 
                     <tr>
                         <td>E005</td>
@@ -714,7 +710,7 @@
     </h1>
 
     <p class="page-description">
-        All saved reservation records.
+        View saved reservation records.
     </p>
 
 
@@ -764,13 +760,13 @@
     </h1>
 
     <p class="page-description">
-        Add and manage system users.
+        Add, edit, and delete system users.
     </p>
 
 
     <div class="form-card">
 
-        <h2>
+        <h2 id="userFormTitle">
             Add New User
         </h2>
 
@@ -779,7 +775,6 @@
             id="userForm"
             novalidate
         >
-
 
             <label for="userId">
                 User ID
@@ -908,14 +903,25 @@
             </span>
 
 
-            <button type="submit">
+            <button
+                id="userSubmitBtn"
+                type="submit"
+            >
                 Add User
+            </button>
+
+
+            <button
+                id="cancelUserEditBtn"
+                class="cancel-edit-btn"
+                type="button"
+            >
+                Cancel Edit
             </button>
 
         </form>
 
     </div>
-
 
 
     <div class="content-card">
@@ -987,21 +993,6 @@
 
     </div>
 
-
-    <div class="announcement-card">
-
-        <h3>
-            Reservation Reminder
-        </h3>
-
-        <p>
-            Students are encouraged to submit equipment
-            reservations before their scheduled laboratory
-            activities.
-        </p>
-
-    </div>
-
 </section>
 
 
@@ -1066,5 +1057,4 @@
 <script src="hello.js"></script>
 
 </body>
-
 </html>
